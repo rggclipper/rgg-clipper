@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RGG-Clipper · Conectando…</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0a0a0f; color: #fff; font: 700 18px 'Segoe UI', system-ui, sans-serif; text-align: center; padding: 20px; }
+  b { background: linear-gradient(90deg, #FF2D55, #FF7A1A); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; font-size: 34px; }
+  p { color: #c8c8d2; font-weight: 600; } a { color: #FF7A1A; }
+</style>
+</head>
+<body>
+<div>
+  <b>RGG-Clipper</b>
+  <p>Volviendo a tu RGG-Clipper…</p>
+  <p id="sin" hidden>Si no vuelve solo, revisa que RGG-Clipper esté prendido en tu PC y <a id="link" href="#">toca aquí</a>.</p>
+</div>
+<script>
+  // Página puente: Meta y TikTok mandan aquí el permiso, y esta página lo pasa a RGG-Clipper en TU PC.
+  // No guarda nada ni lo manda a ningún otro lado.
+  var q = location.search;
+  var estado = new URLSearchParams(q).get('state') || '';
+  var red = estado.split('-')[0];
+  if (!/^(meta|tiktok|youtube)$/.test(red)) red = 'meta';
+  var destino = 'http://localhost:3000/oauth/' + red + q;
+  document.getElementById('link').href = destino;
+  setTimeout(function () { document.getElementById('sin').hidden = false; }, 4000);
+  location.replace(destino);
+</script>
+</body>
+</html>
